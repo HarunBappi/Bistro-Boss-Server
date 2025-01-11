@@ -134,7 +134,12 @@ async function run() {
     });
 
     // MENU Related API
-
+    // POST
+    app.post("/menu", verifyToken, verifyAdmin, async (req, res) => {
+      const item = req.body;
+      const result = await menuCollection.insertOne(item);
+      res.send(result);
+    });
     // GET
     app.get("/menu", async (req, res) => {
       const result = await menuCollection.find().toArray();
